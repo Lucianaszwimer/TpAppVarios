@@ -1,35 +1,27 @@
-import { View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { React, useEffect, useState } from 'react';
-import axios from 'axios';
 import { axiosWeather } from '../axios/endpoints'
 
 /*
 https://www.weatherapi.com/docs/ 
- const [dataWeather,setDataWeather]=useState('')
 
-    useEffect(()=>{
-        
-        //clima
-        setDataWeather = axiosWeather();
-        console.log(dataWeather)    
-    }, [])
+https://javapapers.com/android/get-current-location-in-android/
+
+https://www.google.com/maps/search/?api=1&query=
 */
 
 export function HoraTemperatura() {
-    const navigation = useNavigation();     
-    let dataWeather
-
+    const navigation = useNavigation(); 
+    const [dataWeather, setDataWeather]=useState({})    
     useEffect(()=>{
-        dataWeather = axiosWeather()
-        console.log(dataWeather);
+        //clima
+        const clima = axiosWeather();
+        setDataWeather(clima);
     }, [])
-
-    //clima
-    
     //horario
     const now = new Date();
-    const current = now.getHours() + ':' + now.getMinutes();
+    const current = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
 
     return (
         <View>
