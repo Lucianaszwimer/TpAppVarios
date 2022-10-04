@@ -1,12 +1,12 @@
 import { Alert } from 'react-native';
 import axios from 'axios';
 
-export function axiosWeather() {
+export async function  axiosWeather() {
     const baseUrl='http://api.weatherapi.com/v1';
     const ApiKey = "fa04f6e41f1448bda88124829223009";
     let ubicacion = "Buenos Aires";
     
-    axios.get(`${baseUrl}/current.json?key=${ApiKey}&q=${ubicacion}`)
+    return axios.get(`${baseUrl}/current.json?key=${ApiKey}&q=${ubicacion}`)
         .then((response) => {
             console.log(response.data);
             return response.data;

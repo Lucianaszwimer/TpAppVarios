@@ -1,9 +1,9 @@
 {
   "expoServerPort": null,
-  "packagerPort": 19000,
-  "expoServerNgrokUrl": "https://pv-s8x.anonymous.tpappvarios.exp.direct",
-  "packagerNgrokUrl": "https://pv-s8x.anonymous.tpappvarios.exp.direct",
-  "ngrokPid": 15692,
+  "packagerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "packagerPid": null,
   "webpackServerPort": null
 }
