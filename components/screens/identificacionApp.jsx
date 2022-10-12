@@ -68,8 +68,8 @@ export function IdentificacionApp() {
 
 const styles = StyleSheet.create({
     codigo: {
-        width: 400,
-        height: 400
+        width: 150,
+        height: 150
     },
     texto: {
         fontSize: 20,

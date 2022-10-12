@@ -26,6 +26,10 @@ export function Home() {
                 title="Numero de Emergencias"
                 onPress={() => navigation.navigate('NumEmergencias')}
             />
+            <Button
+                title="Mensaje Usuario"
+                onPress={() => navigation.navigate('MensajeUsuario')}
+            />
         </View>
     );
 }

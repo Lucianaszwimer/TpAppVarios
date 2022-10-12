@@ -8,6 +8,7 @@ import { HoraTemperatura } from "./components/screens/horaTemperatura"
 import { IdentificacionApp } from "./components/screens/identificacionApp"
 import { LlamadoEmerg } from "./components/screens/llamadoEmerg"
 import { NumEmergencias } from "./components/screens/numEmergencias"
+import { MensajeUsuario } from "./components/screens/mensajeUsuario"
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,12 @@ function NumEmergenciasScreen() {
   );
 }
 
+function MensajeUsuarioScreen() {
+  return (
+    <MensajeUsuario />
+  );
+}
+
 export default function App() {
   return (
       <NavigationContainer>
@@ -57,9 +64,9 @@ export default function App() {
             <Stack.Screen name="IdentificacionApp" component={IdentificacionAppScreen} />
             <Stack.Screen name="LlamadoEmerg" component={LlamadoEmergScreen} />
             <Stack.Screen name="NumEmergencias" component={NumEmergenciasScreen} />
+            <Stack.Screen name="MensajeUsuario" component={MensajeUsuarioScreen} />
           </Stack.Navigator>
       </NavigationContainer>
-
   );
 }
 
