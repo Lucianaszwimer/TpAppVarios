@@ -6,7 +6,6 @@ import { Home } from "./components/screens/home/home"
 import { Contactos } from "./components/screens/contactos"
 import { HoraTemperatura } from "./components/screens/horaTemperatura"
 import { IdentificacionApp } from "./components/screens/identificacionApp"
-import { LlamadoEmerg } from "./components/screens/llamadoEmerg"
 import { NumEmergencias } from "./components/screens/numEmergencias"
 import { MensajeUsuario } from "./components/screens/mensajeUsuario"
 
@@ -36,12 +35,6 @@ function IdentificacionAppScreen() {
   );
 }
 
-function LlamadoEmergScreen() {
-  return (
-    <LlamadoEmerg />
-  );
-}
-
 function NumEmergenciasScreen() {
   return (
     <NumEmergencias />
@@ -62,7 +55,6 @@ export default function App() {
             <Stack.Screen name="Contactos" component={ContactosScreen} />
             <Stack.Screen name="HoraTemperatura" component={HoraTemperaturaScreen} />
             <Stack.Screen name="IdentificacionApp" component={IdentificacionAppScreen} />
-            <Stack.Screen name="LlamadoEmerg" component={LlamadoEmergScreen} />
             <Stack.Screen name="NumEmergencias" component={NumEmergenciasScreen} />
             <Stack.Screen name="MensajeUsuario" component={MensajeUsuarioScreen} />
           </Stack.Navigator>

@@ -19,16 +19,8 @@ export function Home() {
                 onPress={() => navigation.navigate('IdentificacionApp')}
             />
              <Button
-                title="Llamado de Emergencias"
-                onPress={() => navigation.navigate('LlamadoEmerg')}
-            />
-             <Button
                 title="Numero de Emergencias"
                 onPress={() => navigation.navigate('NumEmergencias')}
-            />
-            <Button
-                title="Mensaje Usuario"
-                onPress={() => navigation.navigate('MensajeUsuario')}
             />
         </View>
     );

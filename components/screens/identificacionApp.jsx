@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Image, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { mensajeUSuario } from './mensajeUsuario';
 /*Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
   startActivity(intent);
   
@@ -24,7 +25,7 @@ export function IdentificacionApp() {
             setHasPermission(status == 'granted')
         })()
     }
-
+    
     // Pedimos el permiso de la camara llamando a la funcion de arriba
     useEffect(() => {
         askForCameraPermission();
@@ -45,11 +46,11 @@ export function IdentificacionApp() {
             </View>
         )}
     if (hasPermission === false) {
+        mensajeUSuario("Se rechazo el permiso para utilizar la camara")
         return (
             <View>
                 <Text style={styles.texto}>Escanea el codigo para averiguar quienes somos!</Text>
                 <Image style={styles.codigo} source={require('../../img/qr.png')} />
-                <Text>Se rechazo el permiso para utilizar la camara</Text>
                 <Button title={'Permitir camara'} onPress={() => askForCameraPermission()} />
             </View>
         )}

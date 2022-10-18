@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View, Button, FlatList } from 'react-native';
 import * as Contacts from 'expo-contacts';
+import { mensajeUSuario } from './mensajeUsuario';
 
 export function Contactos() {
 
@@ -21,6 +22,7 @@ export function Contactos() {
                     console.log(contact);
                 }
             } else {
+                mensajeUSuario("Se denego el acceso a los contactos");
                 return (
                     <Button title={'Permitir contactos'} onPress={() => Contacts.requestPermissionsAsync()} />
                 );
