@@ -1,8 +1,9 @@
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import * as Contacts from 'expo-contacts';
 import { mensajeUSuario } from './mensajeUsuario';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function NumEmergencias() {
@@ -10,6 +11,7 @@ export function NumEmergencias() {
     const [contactosBuscados, setContactosBuscados] = useState([]);
     const [busqueda, setBusqueda] = useState([]);
     const [hasPermission, setHasPermission] = useState(null);
+    const [found, setFound] = useState([]);
 
     //Funcion de pedir permiso para contactos
     const askForContactsPermission = () => {
@@ -22,6 +24,10 @@ export function NumEmergencias() {
     useEffect(() => {
         askForContactsPermission();
     }, []);
+
+    useEffect(() => {
+        lookingForContacts();
+    }, [busqueda]);
 
     if (hasPermission === null) {
         return (
@@ -45,31 +51,35 @@ export function NumEmergencias() {
         return contact.name === busqueda
     }
 
+    function lookingForContacts() {
+        if (busqueda.length > 2) {
+            let data = contactosBuscados.find(isContact);
+            setFound(data)
+            console.log(found);
+        }
+    }
+
+
     if (hasPermission === 'granted') {
         (async () => {
             const { data } = await Contacts.getContactsAsync({
                 fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers]
             });
-            setContactosBuscados(data)
-
-            if (busqueda.length > 2) {
-                const found = contactosBuscados.find(isContact);
-                console.log(found);
-                return(
-                <Button title={`Agregar a ${found} como numero de emergencias`}
-                    onPress={() => localStorage.setItem("Numero de emergencia", found)} />
-                );
-            }
+            setContactosBuscados(data);
+            lookingForContacts();
         })()
-        return (
-            <View>
-                <Text>Numero Emergencias</Text>
-                <TextInput
-                    placeholder="Introduzca su contacto de emergencias"
-                    onChangeText={setBusqueda}
-                    value={busqueda}
-                />
-            </View>
-        )
     }
+
+    return (
+        <View>
+            <Text>Numero Emergencias</Text>
+            <TextInput
+                placeholder="Introduzca su contacto de emergencias"
+                onChangeText={setBusqueda}
+                value={busqueda}
+            />
+            {found&&<TouchableOpacity title={`Agregar a ${found.name} como numero de emergencias`} onPress={() => await AsyncStorage.setItem("Numero de emergencia", JSON.stringify({"name" : found.name , "number" : found.phoneNumbers[0].number}))} />}
+        </View>
+    )
+
 }
