@@ -23,15 +23,13 @@ export function Contactos() {
                 }
             } else {
                 mensajeUSuario("Se denego el acceso a los contactos");
-                return (
-                    <Button title={'Permitir contactos'} onPress={() => Contacts.requestPermissionsAsync()} />
-                );
             }
         })();
     }, []);
 
     return (
         <View>
+            <Button title={'Permitir contactos'} onPress={() => Contacts.requestPermissionsAsync()} />
             <FlatList
                 data={contacts}
                 keyExtractor={(item) => item.id}

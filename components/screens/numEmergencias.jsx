@@ -11,7 +11,7 @@ export function NumEmergencias() {
     const [contactosBuscados, setContactosBuscados] = useState([]);
     const [busqueda, setBusqueda] = useState([]);
     const [hasPermission, setHasPermission] = useState(null);
-    const [found, setFound] = useState([]);
+    const [found, setFound] = useState(undefined);
 
     //Funcion de pedir permiso para contactos
     const askForContactsPermission = () => {
@@ -59,7 +59,6 @@ export function NumEmergencias() {
         }
     }
 
-
     if (hasPermission === 'granted') {
         (async () => {
             const { data } = await Contacts.getContactsAsync({
@@ -70,6 +69,17 @@ export function NumEmergencias() {
         })()
     }
 
+    function setContact(){
+        AsyncStorage.setItem("Numero de emergencia", JSON.stringify({"name" : found.name , "number" : found.phoneNumbers[0].number}))
+    }
+    function getContact() {
+        AsyncStorage.getItem("Numero de emergencia")
+    }
+    function combinatedFunction(){
+        setContact();
+        getContact();
+    }
+
     return (
         <View>
             <Text>Numero Emergencias</Text>
@@ -78,7 +88,8 @@ export function NumEmergencias() {
                 onChangeText={setBusqueda}
                 value={busqueda}
             />
-            {found&&<TouchableOpacity title={`Agregar a ${found.name} como numero de emergencias`} onPress={() => await AsyncStorage.setItem("Numero de emergencia", JSON.stringify({"name" : found.name , "number" : found.phoneNumbers[0].number}))} />}
+            {found&&<><Button title={`Agregar a ${found.name} como numero de emergencias`} onPress={() => combinatedFunction()} />
+            <Text>Nombre: {found.name} Telefono: {found.phoneNumbers[0].number}</Text></>}
         </View>
     )
 
