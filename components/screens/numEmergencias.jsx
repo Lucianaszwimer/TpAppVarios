@@ -12,6 +12,7 @@ export function NumEmergencias() {
     const [busqueda, setBusqueda] = useState([]);
     const [hasPermission, setHasPermission] = useState(null);
     const [found, setFound] = useState(undefined);
+    const [contactoStorage, setContactoStorage] = useState(undefined);
 
     //Funcion de pedir permiso para contactos
     const askForContactsPermission = () => {
@@ -69,15 +70,16 @@ export function NumEmergencias() {
         })()
     }
 
-    function setContact(){
-        AsyncStorage.setItem("Numero de emergencia", JSON.stringify({"name" : found.name , "number" : found.phoneNumbers[0].number}))
+    async function setContact(){
+        await AsyncStorage.setItem("Numero de emergencia", JSON.stringify({"name" : found.name , "number" : found.phoneNumbers[0].number}))
     }
-    function getContact() {
-        AsyncStorage.getItem("Numero de emergencia")
+    async function getContact() {
+        const contacto = await AsyncStorage.getItem("Numero de emergencia")
+        setContactoStorage(JSON.parse(contacto));
     }
-    function combinatedFunction(){
-        setContact();
-        getContact();
+    async function combinatedFunction(){
+        await setContact();
+        await getContact();
     }
 
     return (
@@ -89,7 +91,7 @@ export function NumEmergencias() {
                 value={busqueda}
             />
             {found&&<><Button title={`Agregar a ${found.name} como numero de emergencias`} onPress={() => combinatedFunction()} />
-            <Text>Nombre: {found.name} Telefono: {found.phoneNumbers[0].number}</Text></>}
+            <Text>Nombre: {contactoStorage?.name} Telefono: {contactoStorage?.phoneNumbers[0]?.number}</Text></>}
         </View>
     )
 

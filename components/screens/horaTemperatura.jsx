@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Image} from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { React, useEffect, useState } from 'react';
 import { axiosWeather } from '../axios/endpoints'
