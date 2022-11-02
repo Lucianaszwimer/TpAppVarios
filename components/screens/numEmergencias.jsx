@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export function NumEmergencias() {
     const navigation = useNavigation();
     const [contactosBuscados, setContactosBuscados] = useState([]);
-    const [busqueda, setBusqueda] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
     const [hasPermission, setHasPermission] = useState(null);
     const [found, setFound] = useState(undefined);
     const [contactoStorage, setContactoStorage] = useState(undefined);
@@ -56,7 +56,7 @@ export function NumEmergencias() {
         if (busqueda.length > 2) {
             let data = contactosBuscados.find(isContact);
             setFound(data)
-            console.log(found);
+            console.log(data);
         }
     }
 
@@ -66,15 +66,16 @@ export function NumEmergencias() {
                 fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers]
             });
             setContactosBuscados(data);
-            lookingForContacts();
         })()
     }
 
     async function setContact(){
-        await AsyncStorage.setItem("Numero de emergencia", JSON.stringify({"name" : found.name , "number" : found.phoneNumbers[0].number}))
+        const obj = {"name" : found.name , "number" : found.phoneNumbers[0].number}
+        console.log(obj)
+        await AsyncStorage.setItem("Numerodeemergencia", JSON.stringify(obj))
     }
     async function getContact() {
-        const contacto = await AsyncStorage.getItem("Numero de emergencia")
+        const contacto = await AsyncStorage.getItem("Numerodeemergencia")
         setContactoStorage(JSON.parse(contacto));
     }
     async function combinatedFunction(){
@@ -90,8 +91,8 @@ export function NumEmergencias() {
                 onChangeText={setBusqueda}
                 value={busqueda}
             />
-            {found&&<><Button title={`Agregar a ${found.name} como numero de emergencias`} onPress={() => combinatedFunction()} />
-            <Text>Nombre: {contactoStorage?.name} Telefono: {contactoStorage?.phoneNumbers[0]?.number}</Text></>}
+            {found&&<><Button title={`Agregar a ${found.name} como numero de emergencias`} onPress={() => combinatedFunction()} /></>}
+            {contactoStorage&&<Text>Nombre: {contactoStorage?.name} Telefono: {contactoStorage?.number}</Text>}
         </View>
     )
 
